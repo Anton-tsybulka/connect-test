@@ -2,7 +2,7 @@ import { put, call, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
 const urlPeople = 'https://jsonplaceholder.typicode.com/users';
-const urlImg = 'https://jsonplaceholder.typicode.com/users';
+const urlImg = 'https://jsonplaceholder.typicode.com/photos';
 
 
 const getPeople = () =>

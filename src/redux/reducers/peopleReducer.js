@@ -21,7 +21,7 @@ export default function peopleReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                listPeople: [...state.data, action.payload],
+                listPeople: [...state.listPeople, ...action.payload],
             };
         case GET_IMG_REQUESTED:
             return { ...state };
@@ -29,7 +29,7 @@ export default function peopleReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                listImages: [...state.data, action.payload],
+                listImages: [...state.listImages, ...action.payload],
             };
         case PEOPLE_FAILED:
             return {

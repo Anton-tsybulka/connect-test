@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import 'antd/dist/antd.css';
 
-import { Select, Avatar } from 'antd';
+import { Select, Avatar, Spin } from 'antd';
 import { getPeople, getImages } from './redux/actions/peopleActions';
 
 const { Option } = Select;
@@ -23,45 +23,51 @@ const App = () => {
                 listImages !== 0 &&
                 listImages.find(item => item.id === id)?.thumbnailUrl;
             return (
-                <Option key={id} value={id}>
-                    <div style={{ display: 'inline-block' }}>
-                        <Avatar size="small" src={img} />
-                        <div style={{ display: 'inline-block' }}>
-                            <p>{name}</p>
-                            <p>{email}</p>
-                        </div>
+                <Option key={id} value={name}>
+                    <Avatar size='small' src={img} />
+                    <div style={{ display: 'inline-block', marginLeft: '2px' }}>
+                        <p>{name}</p>
+                        <p>{email}</p>
                     </div>
                 </Option>
             )
         });
 
     return (
-        <div
-            style={{
-                display: 'flex',
-                justifyContent: 'center',
-                marginTop: '250px'
-            }
-            } >
-            <Select
-                showSearch
-                style={{ width: 343 }}
-                placeholder="Search to Select"
-                optionFilterProp="children"
-                filterOption={(input, option) =>
-                    option.children.props.children[1].props.children[0].props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                }
-                filterSort={(optionA, optionB) => {
-                    optionA.children.props.children[1].props.children[0].props.children.toLowerCase().localeCompare(optionB.children.props.children[1].props.children[0].props.children.toLowerCase())
-                }
-                }
+        <>
+            {
+                loading ?
+                    (<div style={{ width: '5%', margin: '13% auto' }}>
+                        <Spin
+                            tip='Loading...'
+                            size='large' />
+                    </div>) :
+                    (<div
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            marginTop: '250px'
+                        }
+                        } >
+                        <Select
+                            showSearch
+                            style={{ width: 343 }}
+                            placeholder="Search to Select"
+                            optionFilterProp="children"
+                            filterOption={(input, option) =>
+                                option.children[1].props.children[0].props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                            }
+                            filterSort={(optionA, optionB) => {
+                                optionA.children[1].props.children[0].props.children.toLowerCase().localeCompare(optionB.children[1].props.children[0].props.children.toLowerCase())
+                            }
+                            }
 
 
-            >
-                {renderOption}
-            </Select>
-        </div >
-
+                        >
+                            {renderOption}
+                        </Select>
+                    </div >)}
+        </>
     );
 };
 

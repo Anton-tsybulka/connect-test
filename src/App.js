@@ -2,10 +2,9 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import 'antd/dist/antd.css';
 
-import { Select, Avatar, Spin } from 'antd';
+import { Spin } from 'antd';
 import { getPeople, getImages } from './redux/actions/peopleActions';
-
-const { Option } = Select;
+import './App.css';
 
 const App = () => {
     const { listPeople, listImages, loading } = useSelector((state) => state.people);
@@ -23,51 +22,46 @@ const App = () => {
                 listImages !== 0 &&
                 listImages.find(item => item.id === id)?.thumbnailUrl;
             return (
-                <Option key={id} value={name}>
-                    <Avatar size='small' src={img} />
-                    <div style={{ display: 'inline-block', marginLeft: '2px' }}>
-                        <p>{name}</p>
-                        <p>{email}</p>
+                <div
+                    className='item-list'
+                    key={id}>
+                    <div
+                        className='item-list_img'>
+                        <img
+                            key={`${id}${img}`}
+                            src={img}
+                            alt='Avatar' />
                     </div>
-                </Option>
+                    <div
+                        className='item-list_people'>
+                        <p
+                            key={`${id}${name}`}
+                            className='item-list_name' >
+                            {name}
+                        </p>
+                        <p
+                            key={`${id}${email}`}
+                            className='item-list_email' >
+                            {email}
+                        </p>
+                    </div>
+                </div>
             )
         });
 
     return (
-        <>
-            {
-                loading ?
-                    (<div style={{ width: '5%', margin: '13% auto' }}>
-                        <Spin
-                            tip='Loading...'
-                            size='large' />
-                    </div>) :
-                    (<div
-                        style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            marginTop: '250px'
-                        }
-                        } >
-                        <Select
-                            showSearch
-                            style={{ width: 343 }}
-                            placeholder="Search to Select"
-                            optionFilterProp="children"
-                            filterOption={(input, option) =>
-                                option.children[1].props.children[0].props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                            }
-                            filterSort={(optionA, optionB) => {
-                                optionA.children[1].props.children[0].props.children.toLowerCase().localeCompare(optionB.children[1].props.children[0].props.children.toLowerCase())
-                            }
-                            }
-
-
-                        >
-                            {renderOption}
-                        </Select>
-                    </div >)}
-        </>
+        <div
+            className='search-form'>
+            <input
+                list='list'
+                placeholder='Search'
+                className='search-list_input'>
+            </input>
+            <div
+                className='list-output'>
+                {renderOption}
+            </div>
+        </div>
     );
 };
 

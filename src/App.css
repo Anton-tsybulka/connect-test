@@ -1,0 +1,73 @@
+p {
+    font-family: 'Noto Sans';
+}
+
+.search-form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 350px;
+    margin: 200px auto 0; 
+}
+
+.search-form .search-list_input {
+    background: #F9F9F9;
+    border: 1px solid black;
+    border-radius: 6px 6px 0px 0px;
+    width: 343px;
+    height: 56px;
+    padding: 0;    
+    padding-left: 50px;
+    font-size: 16px;
+    line-height: 22px;    
+    background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRk1eWe9FpizhxNaLw_FR94tamFA81junf3OIb29I-5Bz00gfdw4moTp0CepY-YWlA8Eqw&usqp=CAU) no-repeat 3px 1px;
+    background-size: auto 90%;
+}
+
+.search-form .list-output {
+    display: flex;
+    flex-direction: column;
+    padding-left: 16px;
+    width: 343px;
+    height: 222px;
+    background: #FFFFFF;
+    border-radius: 0px 0px 8px 8px;
+    overflow: auto;
+}
+
+.search-form .list-output .item-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; 
+    padding-top: 16px;
+    height: 56px;   
+}
+
+.search-form .list-output .item-list_img img {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #E5E5E6;
+    border-radius: 1000px;
+    flex: 2 1;
+}
+
+.search-form .list-output .item-list .item-list_people {
+    display: flex;
+    flex-direction:column;
+    padding-left: 8px;
+    flex: 1 2;
+}
+
+.search-form .list-output .item-list .item-list_people .item-list_name {
+    font-size: 14px;
+    line-height: 19px;
+    margin: 2px 0 0;
+    width: 50%;
+}
+
+.search-form .list-output .item-list .item-list_people .item-list_email {
+    font-size: 12px;
+    line-height: 16px;
+    margin: 0;
+    width: 50%;
+}

@@ -2,21 +2,23 @@ p {
     font-family: 'Noto Sans';
 }
 
-.search-form {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    width: 350px;
-    margin: 200px auto 0; 
+.search-form {  
+    width: 343px;
+    position: absolute;
+    left: 40%;
+    right: 0%;
+    top: 30%;
+    bottom: 0%;
 }
 
 .search-form .search-list_input {
+    
     background: #F9F9F9;
     border: 1px solid black;
     border-radius: 6px 6px 0px 0px;
-    width: 343px;
     height: 56px;
-    padding: 0;    
+    width: 343px;
+    padding: 0;   
     padding-left: 50px;
     font-size: 16px;
     line-height: 22px;    
@@ -28,7 +30,6 @@ p {
     display: flex;
     flex-direction: column;
     padding-left: 16px;
-    width: 343px;
     height: 222px;
     background: #FFFFFF;
     border-radius: 0px 0px 8px 8px;
@@ -62,12 +63,12 @@ p {
     font-size: 14px;
     line-height: 19px;
     margin: 2px 0 0;
-    width: 50%;
+    flex: 1 1 50%;
 }
 
 .search-form .list-output .item-list .item-list_people .item-list_email {
     font-size: 12px;
     line-height: 16px;
     margin: 0;
-    width: 50%;
+    flex: 1 1 50%;
 }

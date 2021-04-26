@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import 'antd/dist/antd.css';
 
@@ -8,12 +8,35 @@ import './App.css';
 
 const App = () => {
     const { listPeople, listImages, loading } = useSelector((state) => state.people);
+    const [visible, setVisible] = useState(false);
+    const [inputValue, setInputValue] = useState('');
+    const inputRef = useRef();
     const dispatch = useDispatch();
+
+    const handleOutsideClick = (e) => {
+        if (!e.path.includes(inputRef.current)) {
+            setVisible(false);
+        }
+    };
 
     useEffect(() => {
         dispatch(getImages());
         dispatch(getPeople());
+        document.body.addEventListener('click', handleOutsideClick);
     }, [dispatch]);
+
+    const toggleVisible = () => {
+        setVisible(true);
+    };
+
+    const choicePerson = (name) => {
+        setInputValue(name);
+        setVisible(false);
+    };
+
+    const changeInput = (e) => {
+        setInputValue(e.target.value);
+    };
 
     const renderOption = listPeople &&
         listPeople.length !== 0 &&
@@ -23,6 +46,7 @@ const App = () => {
                 listImages.find(item => item.id === id)?.thumbnailUrl;
             return (
                 <div
+                    onClick={() => choicePerson(name)}
                     className='item-list'
                     key={id}>
                     <div
@@ -50,18 +74,27 @@ const App = () => {
         });
 
     return (
-        <div
-            className='search-form'>
-            <input
-                list='list'
-                placeholder='Search'
-                className='search-list_input'>
-            </input>
-            <div
-                className='list-output'>
-                {renderOption}
-            </div>
-        </div>
+        <>
+            {loading ?
+                <Spin /> :
+                (<div
+                    ref={inputRef}
+                    className='search-form'>
+                    <input
+                        onClick={toggleVisible}
+                        onChange={(e) => changeInput(e)}
+                        list='list'
+                        placeholder='Search'
+                        className='search-list_input'
+                        value={inputValue} >
+                    </input>
+                    {visible &&
+                        <div
+                            className='list-output'>
+                            {renderOption}
+                        </div>}
+                </div>)}
+        </>
     );
 };
 

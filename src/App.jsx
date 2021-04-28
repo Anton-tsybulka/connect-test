@@ -65,7 +65,12 @@ const App = () => {
     return (
         <>
             {loading ?
-                <Spin /> :
+                <Spin 
+                    style={{
+                        position: 'absolute',
+                        left: '48%',
+                        top: '33%',
+                    }} /> :
                 (<div
                     ref={inputRef}
                     className='search-form'>

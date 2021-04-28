@@ -4,19 +4,17 @@ import 'antd/dist/antd.css';
 
 import { Spin } from 'antd';
 import ListOutput from './components/ListOutput';
-import { getPeople, getImages, changeInputValue } from './redux/actions/peopleActions';
+import { getPeople, changeInputValue } from './redux/actions/peopleActions';
 import './App.css';
-
 
 const App = () => {
     const { 
-        listPeople, 
-        listImages, 
+        data: {listPeople, listImages}, 
         loading, 
         inputValue,
         searchListImages,
         searchListPeople
-     } = useSelector(({people}) => people);
+    } = useSelector(({people}) => people);
 
     const dataListOutput = {
         people: null,
@@ -35,7 +33,6 @@ const App = () => {
     };
 
     useEffect(() => {
-        dispatch(getImages());
         dispatch(getPeople());
         document.body.addEventListener('click', handleOutsideClick);
     }, [dispatch]);

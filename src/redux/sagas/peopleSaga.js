@@ -1,9 +1,8 @@
-import { put, call, takeEvery } from 'redux-saga/effects';
+import { all, put, call, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
 const urlPeople = 'https://jsonplaceholder.typicode.com/users';
 const urlImg = 'https://jsonplaceholder.typicode.com/photos';
-
 
 const getPeople = () =>
    axios
@@ -23,17 +22,11 @@ const getImages = () =>
 
 function* fetchPeople() {
    try {
-      const people = yield call(getPeople);
-      yield put({ type: 'GET_PEOPLE_SUCCESS', payload: people });
-   } catch (error) {
-      yield put({ type: 'PEOPLE_FAILED', message: error.message });
-   }
-};
-
-function* fetchImages() {
-   try {
-      const images = yield call(getImages);
-      yield put({ type: 'GET_IMG_SUCCESS', payload: images });
+      const [listPeople, listImages] = yield all([
+         call(getPeople),
+         call(getImages)
+      ]);
+      yield put({ type: 'GET_PEOPLE_SUCCESS', payload: { listPeople, listImages } });
    } catch (error) {
       yield put({ type: 'PEOPLE_FAILED', message: error.message });
    }
@@ -51,12 +44,8 @@ function* getPeopleSaga() {
    yield takeEvery('GET_PEOPLE_REQUESTED', fetchPeople);
 };
 
-function* getImagesSaga() {
-   yield takeEvery('GET_IMG_REQUESTED', fetchImages);
-};
-
 function* changeInputValue() {
    yield takeEvery('CHANGE_INPUTVALUE_REQUESTED', fetchChangeInputValue)
 }
 
-export { getPeopleSaga, getImagesSaga, changeInputValue };
+export { getPeopleSaga, changeInputValue };

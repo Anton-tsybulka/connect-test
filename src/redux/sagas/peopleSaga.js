@@ -39,6 +39,14 @@ function* fetchImages() {
    }
 };
 
+function* fetchChangeInputValue(action) {
+   try {
+      yield put({ type: 'CHANGE_INPUTVALUE_SUCCESS', payload: action.payload });
+   } catch (error) {
+      yield put({ type: 'PEOPLE_FAILED', message: error.message });
+   }
+}
+
 function* getPeopleSaga() {
    yield takeEvery('GET_PEOPLE_REQUESTED', fetchPeople);
 };
@@ -47,4 +55,8 @@ function* getImagesSaga() {
    yield takeEvery('GET_IMG_REQUESTED', fetchImages);
 };
 
-export { getPeopleSaga, getImagesSaga };
+function* changeInputValue() {
+   yield takeEvery('CHANGE_INPUTVALUE_REQUESTED', fetchChangeInputValue)
+}
+
+export { getPeopleSaga, getImagesSaga, changeInputValue };
